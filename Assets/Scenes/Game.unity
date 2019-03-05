@@ -1344,6 +1344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 219921998}
   player: {fileID: 647653799}
+  numberOfEnemies: 3
 --- !u!4 &836555967
 Transform:
   m_ObjectHideFlags: 0

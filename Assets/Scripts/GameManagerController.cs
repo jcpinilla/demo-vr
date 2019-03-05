@@ -6,13 +6,13 @@ public class GameManagerController : MonoBehaviour
 {
     public GameObject enemy;
     public GameObject player;
+    public int numberOfEnemies;
 
     private System.Random random;
 
     void Start()
     {
         random = new System.Random();
-        int numberOfEnemies = 2;
         for (int i = 0; i < numberOfEnemies - 1; i++)
         {
             InstantiateEnemy();
