@@ -6,4 +6,4 @@ El objetivo del juego es recoger todos los lingotes de oro que se encuentran en 
 
 ## Para correr el demo
 
-Seleccione en Unity la opción `File → Build and Run`, o sólo corra la escena **Game** con el botón de *play*. Asegúrese de tener conectado el Oculus Rift y ambos controles Oculus Touch. Puede cambiar la dificultad del juego modificando el parámetro `Number of enemies` del objeto `GameManager` en la jerarquía.
+Seleccione en Unity la opción `File → Build and Run`, o solo corra la escena **Game** con el botón de *play*. Asegúrese de tener conectado el Oculus Rift y ambos controles Oculus Touch. Puede cambiar la dificultad del juego modificando el parámetro `Number of enemies` del objeto `GameManager` en la jerarquía.
