@@ -2,44 +2,24 @@
 
 public abstract class InputController : MonoBehaviour
 {
-    private AudioSource audioSource;
-    private bool hasReleasedTrigger;
-    private System.Random random = new System.Random();
-
-    protected abstract OVRInput.Axis1D IndexTrigger();
+    private LineRenderer lineRenderer;
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        hasReleasedTrigger = true;
+        lineRenderer = GetComponent<LineRenderer>();
     }
 
     void Update()
     {
-        float trigger = OVRInput.Get(IndexTrigger());
-        if (trigger < 0.1)
-        {
-            hasReleasedTrigger = true;
-        }
-        if (trigger > 0.9 && hasReleasedTrigger && !audioSource.isPlaying)
-        {
-            hasReleasedTrigger = false;
-            audioSource.Play();
-            RaycastGun();
-        }
+        CreateRay();
     }
 
-    private void RaycastGun()
+    private void CreateRay()
     {
-        RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, transform.forward, out hit))
-        {
-            GameObject gameObject = hit.collider.gameObject;
-            if (gameObject.CompareTag("Enemy"))
-            {
-                gameObject.GetComponent<EnemyController>().OnHit();
-            }
-        }
+        float lengthScaleFactor = 1000f;
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = transform.forward * lengthScaleFactor;
+        lineRenderer.SetPosition(0, startPosition);
+        lineRenderer.SetPosition(1, endPosition);
     }
 }
