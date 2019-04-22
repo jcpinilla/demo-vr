@@ -54,7 +54,7 @@ public class RaysManagerController : MonoBehaviour
         joinLineRenderer.SetPosition(0, P);
         joinLineRenderer.SetPosition(1, Q);
 
-        //Vector3 PIP = new Vector3((P.x + Q.x) / 2f, (P.y + Q.y) / 2f, (P.z + Q.z) / 2f);
-        //interactionSphere.transform.position = PIP;
+        Vector3 PIP = 0.5f * (P + Q);
+        interactionSphere.transform.position = PIP;
     }
 }
