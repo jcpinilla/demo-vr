@@ -6,24 +6,59 @@ public class PIPSphereController : MonoBehaviour
 {
     public Material PIPActive;
     public Material PIPInactive;
+    public SpindleController spindleController;
+    public RaysManagerController raysManagerController;
 
     private GameObject pickable;
+    private GameObject scaledObject;
     private Renderer renderer;
+
+    private bool performingScale;
 
     void Start()
     {
         pickable = null;
         renderer = GetComponent<Renderer>();
+        performingScale = false;
     }
 
     void Update()
     {
         bool one = OVRInput.Get(OVRInput.Button.One);
+        bool two = OVRInput.Get(OVRInput.Button.Two);
         bool three = OVRInput.Get(OVRInput.Button.Three);
+        bool four = OVRInput.Get(OVRInput.Button.Four);
         bool pickAction = one || three;
+        bool scaleAction = two || four;
         if (pickAction && pickable != null)
         {
             AnchorToPickable();
+        }
+        if (scaleAction)
+        {
+            if (scaledObject == null)
+            {
+                if (pickable != null)
+                {
+                    scaledObject = pickable;
+                }
+            }
+            else
+            {
+                spindleController.OnScaleObjectEnter(scaledObject);
+                performingScale = true;
+                if (!pickAction)
+                {
+                    raysManagerController.ChangeComponentsVisibility(false);
+                }
+            }
+        }
+        else if (performingScale)
+        {
+            scaledObject = null;
+            spindleController.OnScaleObjectExit();
+            performingScale = false;
+            raysManagerController.ChangeComponentsVisibility(true);
         }
     }
 

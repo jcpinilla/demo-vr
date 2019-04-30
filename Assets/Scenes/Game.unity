@@ -146,6 +146,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PIPActive: {fileID: 2100000, guid: 644bf0f27eacd9241b1607c5c0060191, type: 2}
   PIPInactive: {fileID: 2100000, guid: a3f9dec48ca42ba44ad54161c64378dc, type: 2}
+  spindleController: {fileID: 2105079877}
+  raysManagerController: {fileID: 185591417}
 --- !u!135 &12899889
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -264,7 +266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &170076734
 Light:
   m_ObjectHideFlags: 0
@@ -791,7 +793,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1158659848
 Transform:
   m_ObjectHideFlags: 0
@@ -1045,7 +1047,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368622401}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.99, y: 0.49, z: -4}
+  m_LocalPosition: {x: 7.99, y: 0.49, z: -4}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1479,7 +1481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &1968711096
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1857,7 +1859,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightHandAnchor: {fileID: 1528036393}
   leftHandAnchor: {fileID: 2118441728}
-  interactionSphere: {fileID: 1968711095}
 --- !u!1 &2118441728
 GameObject:
   m_ObjectHideFlags: 0

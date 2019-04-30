@@ -51,10 +51,18 @@ public class RaysManagerController : MonoBehaviour
         Vector3 P = A + t*u;
         Vector3 Q = B + s*v;
 
-        joinLineRenderer.SetPosition(0, P);
-        joinLineRenderer.SetPosition(1, Q);
+        //joinLineRenderer.SetPosition(0, P);
+        //joinLineRenderer.SetPosition(1, Q);
 
         Vector3 PIP = 0.5f * (P + Q);
         interactionSphere.transform.position = PIP;
+    }
+
+    public void ChangeComponentsVisibility(bool enable)
+    {
+        interactionSphere.GetComponent<Renderer>().enabled = enable;
+        rightLineRenderer.enabled = enable;
+        leftLineRenderer.enabled = enable;
+        //joinLineRenderer.enabled = enable;
     }
 }
