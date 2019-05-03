@@ -12,6 +12,9 @@ public class SpindleController : MonoBehaviour
     private Vector3? pickedObjectInitialScale = null;
     private float? lineInitialMagnitude = null;
 
+    private Quaternion? pickedObjectInitialRotation = null;
+    private Vector3? lineInitialDirection = null;
+
     void Start()
     {
         joinLineRenderer = GetComponent<LineRenderer>();
@@ -33,12 +36,17 @@ public class SpindleController : MonoBehaviour
 
     float GetLineMagnitude()
     {
-        Vector3 R = rightHandAnchor.transform.position;
-        Vector3 L = leftHandAnchor.transform.position;
-        return (R - L).magnitude;
+        return GetLineDirection().magnitude;
     }
 
-    public void OnScaleObjectEnter(GameObject pickedObject)
+    Vector3 GetLineDirection()
+    {
+        Vector3 R = rightHandAnchor.transform.position;
+        Vector3 L = leftHandAnchor.transform.position;
+        return (R - L);
+    }
+
+    public void onManipulateEnter(GameObject pickedObject)
     {
         if (!pickedObjectInitialScale.HasValue)
         {
@@ -48,13 +56,30 @@ public class SpindleController : MonoBehaviour
         float lineMagnitude = GetLineMagnitude();
         float lineRatio = lineMagnitude / lineInitialMagnitude.Value;
         pickedObject.transform.localScale = pickedObjectInitialScale.Value * lineRatio;
+
+        if (!pickedObjectInitialRotation.HasValue)
+        {
+            pickedObjectInitialRotation = pickedObject.transform.rotation;
+            lineInitialDirection = GetLineDirection();
+        }
+        Vector3 currentLineDirection = GetLineDirection();
+        Vector3 perp = Vector3.Cross(lineInitialDirection.Value, currentLineDirection);
+        float angle = Vector3.Angle(lineInitialDirection.Value, currentLineDirection);
+        Quaternion newRotation = Quaternion.AngleAxis(angle, perp);
+        //pickedObject.transform.rotation = pickedObjectInitialRotation.Value * newRotation;
+        pickedObject.transform.rotation = newRotation;
+
         DrawLine();
     }
 
-    public void OnScaleObjectExit()
+    public void onManipulateExit()
     {
         pickedObjectInitialScale = null;
         lineInitialMagnitude = null;
+
+        lineInitialDirection = null;
+        pickedObjectInitialRotation = null;
+
         RemoveLine();
     }
 }

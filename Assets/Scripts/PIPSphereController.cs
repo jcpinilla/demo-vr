@@ -45,7 +45,7 @@ public class PIPSphereController : MonoBehaviour
             }
             else
             {
-                spindleController.OnScaleObjectEnter(scaledObject);
+                spindleController.onManipulateEnter(scaledObject);
                 performingScale = true;
                 if (!pickAction)
                 {
@@ -56,7 +56,7 @@ public class PIPSphereController : MonoBehaviour
         else if (performingScale)
         {
             scaledObject = null;
-            spindleController.OnScaleObjectExit();
+            spindleController.onManipulateExit();
             performingScale = false;
             raysManagerController.ChangeComponentsVisibility(true);
         }
