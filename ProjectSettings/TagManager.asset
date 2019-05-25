@@ -8,6 +8,7 @@ TagManager:
   - Ignot
   - Subground
   - Pickable
+  - Target
   layers:
   - Default
   - TransparentFX

@@ -11,14 +11,14 @@ public class PIPSphereController : MonoBehaviour
 
     private GameObject pickable;
     private GameObject scaledObject;
-    private Renderer thisRenderer;
+    private new Renderer renderer;
 
     private bool performingScale;
 
     void Start()
     {
         pickable = null;
-        thisRenderer = GetComponent<Renderer>();
+        renderer = GetComponent<Renderer>();
         performingScale = false;
     }
 
@@ -70,9 +70,9 @@ public class PIPSphereController : MonoBehaviour
     void ChangePipLook(bool active)
     {
         Material newMaterial = active ? PIPActive : PIPInactive;
-        Material[] materials = thisRenderer.materials;
+        Material[] materials = renderer.materials;
         materials[0] = newMaterial;
-        thisRenderer.materials = materials;
+        renderer.materials = materials;
     }
 
     void OnTriggerEnter(Collider other)
