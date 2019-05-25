@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class PickableController : MonoBehaviour
 {
-    const string targetTag = "Target";
+    private const string targetTag = "Target";
+
+    private GameObject currentTarget;
+
+    void Update()
+    {
+        if (currentTarget != null)
+        {
+            bool matchesTarget = MatchesTarget(currentTarget);
+            TargetController targetController = currentTarget.GetComponent<TargetController>();
+            if (matchesTarget)
+            {
+                targetController.OnTargetMatch();
+            }
+            else
+            {
+                targetController.OnTargetUnmatch();
+            }
+        }
+    }
 
     void OnTriggerEnter(Collider other)
     {
         GameObject gameObject = other.gameObject;
         if (gameObject.CompareTag(targetTag))
         {
-            TargetController targetController = gameObject.GetComponent<TargetController>();
-            targetController.OnTargetMatch();
+            currentTarget = gameObject;
         }
     }
 
@@ -21,8 +39,35 @@ public class PickableController : MonoBehaviour
         GameObject gameObject = other.gameObject;
         if (gameObject.CompareTag(targetTag))
         {
-            TargetController targetController = gameObject.GetComponent<TargetController>();
-            targetController.OnTargetUnmatch();
+            currentTarget = null;
         }
+    }
+
+    bool MatchesTarget(GameObject target)
+    {
+        return MatchesTargetPosition(target) && MatchesTargetScale(target);
+    }
+
+    bool MatchesTargetPosition(GameObject target)
+    {
+        float distanceToCenter = Vector3.Distance(target.transform.position, transform.position);
+        float targetSideSize = target.transform.localScale.x;
+        float distanceRatio = distanceToCenter / targetSideSize;
+
+        float ratioThreshold = 0.3f;
+        return distanceRatio < ratioThreshold;
+    }
+
+    bool MatchesTargetScale(GameObject target)
+    {
+        float targetSideSize = target.transform.localScale.x;
+        float thisSideSize = transform.localScale.x;
+        float lengthRatio = thisSideSize / targetSideSize;
+
+        float marginPercent = 0.1f;
+        float upperLimit = 1 + marginPercent;
+        float lowerLimit = 1 - marginPercent;
+
+        return lengthRatio > lowerLimit && lengthRatio < upperLimit;
     }
 }
