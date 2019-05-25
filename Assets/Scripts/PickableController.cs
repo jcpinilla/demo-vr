@@ -7,6 +7,14 @@ public class PickableController : MonoBehaviour
     private const string targetTag = "Target";
 
     private GameObject currentTarget;
+    private Vector3 initialPosition;
+    private Vector3 initialScale;
+
+    void Start()
+    {
+        initialPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        initialScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+    }
 
     void Update()
     {
@@ -18,11 +26,13 @@ public class PickableController : MonoBehaviour
             {
                 targetController.OnTargetMatch();
             }
-            else
-            {
-                targetController.OnTargetUnmatch();
-            }
         }
+    }
+
+    IEnumerator OnDelayedTargetUnmatch(TargetController targetController)
+    {
+        yield return new WaitForSeconds(3);
+        targetController.OnTargetUnmatch();
     }
 
     void OnTriggerEnter(Collider other)
