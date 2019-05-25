@@ -12,8 +12,8 @@ public class SpindleController : MonoBehaviour
     private Vector3? pickedObjectInitialScale = null;
     private float? lineInitialMagnitude = null;
 
-    private Quaternion? pickedObjectInitialRotation = null;
-    private Vector3? lineInitialDirection = null;
+    //private Quaternion? pickedObjectInitialRotation = null;
+    //private Vector3? lineInitialDirection = null;
 
     void Start()
     {
@@ -57,17 +57,17 @@ public class SpindleController : MonoBehaviour
         float lineRatio = lineMagnitude / lineInitialMagnitude.Value;
         pickedObject.transform.localScale = pickedObjectInitialScale.Value * lineRatio;
 
-        if (!pickedObjectInitialRotation.HasValue)
-        {
-            pickedObjectInitialRotation = pickedObject.transform.rotation;
-            lineInitialDirection = GetLineDirection();
-        }
-        Vector3 currentLineDirection = GetLineDirection();
-        Vector3 perp = Vector3.Cross(lineInitialDirection.Value, currentLineDirection);
-        float angle = Vector3.Angle(lineInitialDirection.Value, currentLineDirection);
-        Quaternion newRotation = Quaternion.AngleAxis(angle, perp);
+        //if (!pickedObjectInitialRotation.HasValue)
+        //{
+        //    pickedObjectInitialRotation = pickedObject.transform.rotation;
+        //    lineInitialDirection = GetLineDirection();
+        //}
+        //Vector3 currentLineDirection = GetLineDirection();
+        //Vector3 perp = Vector3.Cross(lineInitialDirection.Value, currentLineDirection);
+        //float angle = Vector3.Angle(lineInitialDirection.Value, currentLineDirection);
+        //Quaternion newRotation = Quaternion.AngleAxis(angle, perp);
         //pickedObject.transform.rotation = pickedObjectInitialRotation.Value * newRotation;
-        pickedObject.transform.rotation = newRotation;
+        //pickedObject.transform.rotation = newRotation;
 
         DrawLine();
     }
@@ -77,8 +77,8 @@ public class SpindleController : MonoBehaviour
         pickedObjectInitialScale = null;
         lineInitialMagnitude = null;
 
-        lineInitialDirection = null;
-        pickedObjectInitialRotation = null;
+        //lineInitialDirection = null;
+        //pickedObjectInitialRotation = null;
 
         RemoveLine();
     }
